@@ -1,19 +1,17 @@
-def hasTriplet(arr, target):
+def minChocolateDifference(arr, m):
     n = len(arr)
+    if m == 0 or n == 0:
+        return 0
+    if m > n:
+        return -1
+
     arr.sort()
+    min_diff = float('inf')
 
-    for i in range(n - 2):
-        left = i + 1
-        right = n - 1
+    for i in range(n - m + 1):
+        diff = arr[i + m - 1] - arr[i]
+        if diff < min_diff:
+            min_diff = diff
 
-        while left < right:
-            current_sum = arr[i] + arr[left] + arr[right]
-
-            if current_sum == target:
-                return True
-            elif current_sum < target:
-                left += 1
-            else:
-                right -= 1
-
-    return False
+    return min_diff
+    
