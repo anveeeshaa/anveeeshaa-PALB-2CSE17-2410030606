@@ -1,16 +1,17 @@
-def minChocolateDifference(arr, m):
+def smallestSubarray(x, arr):
     n = len(arr)
-    if m == 0 or n == 0:
+    min_len = n + 1
+    curr_sum = 0
+    start = 0
+
+    for end in range(n):
+        curr_sum += arr[end]
+
+        while curr_sum > x:
+            min_len = min(min_len, end - start + 1)
+            curr_sum -= arr[start]
+            start += 1
+
+    if min_len == n + 1:
         return 0
-    if m > n:
-        return -1
-
-    arr.sort()
-    min_diff = float('inf')
-
-    for i in range(n - m + 1):
-        diff = arr[i + m - 1] - arr[i]
-        if diff < min_diff:
-            min_diff = diff
-
-    return min_diff
+    return min_len
